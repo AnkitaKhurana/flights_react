@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy,useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Error from './components/error';
+import Header from './components/common/header';
+import Flight from './components/flight';
+import FlightContext from './contexts/flight';
 
-function App() {
+const About = lazy(() => import('./components/about'));
+
+const App = () => {
+  const [context, setContext] = useState([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  <FlightContext.Provider value={[context, setContext]}>
+  <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+    <Header></Header>
+      <Switch>
+        <Route exact path="/" component={Flight}/>
+        <Route path="/about" component={About}/>
+        <Route component={Error} />
+      </Switch>
+    </Suspense>
+  </Router>
+  </FlightContext.Provider>
+);}
 
 export default App;

@@ -1,0 +1,26 @@
+.flight_body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column ;
+}
+.row{
+    display: block;
+}
+.search_bar{
+    align-self: center ;
+}
+.flight_content{
+    display: flex;
+    justify-content: center;
+    flex-direction: row ;
+}
+
+
+@media only screen and (hover: none) and (pointer: coarse){
+    .flight_content{       
+        flex-direction: column ;
+    } 
+    .hiddenButton{
+        display: none;
+    }
+}
